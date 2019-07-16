@@ -7,3 +7,7 @@ Working with the environment agency on flood risk/ flooding impact.
 Links to data:
 
 https://datamillnorth.org/dataset/flood-impacts
+
+Gauge API call
+https://environment.data.gov.uk/flood-monitoring/id/stations
+

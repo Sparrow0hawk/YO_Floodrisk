@@ -9,11 +9,9 @@ library(rgdal)
 flood_risk <- readOGR(dsn="/Users/alexcoleman/PhD_OneDrive/Code/Python/YO_Floodrisk/data/manipulated_flood_risk.geojson",
                                   layer = "OGRGeoJSON")
 
-flood_risk <- spTransform(flood_risk, CRS("+proj=longlat +ellps=GRS80"))
-
 # anything going into fluidPage goes into app
 ui <- fluidPage(
-  titlePanel("Test"),
+  titlePanel("Mapping flood impacts"),
     mainPanel(
       leafletOutput("mymap")
     )
@@ -21,14 +19,17 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
   
+# function to generate map
 
   output$mymap <- renderLeaflet({
     leafletOptions(maxZoom = 10)  
     leaflet() %>%
-      setView(lng=53.752288, lat = -1.677899, zoom=4) %>%
+      # set map to centre on west yorkshire TODO change
+      setView(lat=53.752288, lng = -1.677899, zoom=8) %>%
       addTiles() %>%
-      addMarkers(lng = as.numeric(flood_risk@data$Longitude), 
-                 lat = as.numeric(flood_risk@data$Latitude))
+      # select out lon and lat from coords in spatialpointsdataframe
+      addMarkers(lat = flood_risk@coords[,2], 
+                 lng = flood_risk@coords[,1])
   })
 
 }

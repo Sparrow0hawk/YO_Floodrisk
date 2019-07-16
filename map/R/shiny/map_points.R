@@ -12,12 +12,18 @@ flood_risk <- readOGR(dsn="./data/manipulated_flood_risk.geojson",
                                   layer = "OGRGeoJSON")
 
 # anything going into fluidPage goes into app
-ui <- fluidPage(theme= './shiny/www/bootstrap.min.css',
+ui <- fluidPage(
+  tags$head(includeCSS('./map/R/shiny/www/bootstrap.css')),
                 
-  titlePanel("Mapping flood impacts"),
-    mainPanel(
-      leafletOutput("mymap")
-    )
+  h1("Mapping flood impacts", align='center'),
+  h2('Taking open data from the Environment Agency and building a better reporting platform.', align='center'),
+  fluidRow(
+  column(2),
+  column(8, align='center',
+        leafletOutput("mymap", height= '80vh')
+        ),
+  column(2)
+  )
 )
 
 server <- function(input, output, session) {

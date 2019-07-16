@@ -2,3 +2,5 @@
 
 # jupyter history stuff
 .pynb_checkpoints
+.Rproj.user
+.Rhistory 

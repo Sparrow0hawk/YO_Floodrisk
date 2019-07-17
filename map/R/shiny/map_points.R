@@ -6,10 +6,8 @@ library(leaflet)
 library(sp)
 library(rgdal)
 
-
 # import existing geojson
-flood_risk <- readOGR(dsn="./data/manipulated_flood_risk.geojson",
-                                  layer = "OGRGeoJSON")
+flood_risk <- readOGR(dsn="./data/G_locs_lite2.geojson")
 
 # anything going into fluidPage goes into app
 ui <- fluidPage(
@@ -38,9 +36,37 @@ server <- function(input, output, session) {
       addTiles() %>%
       # select out lon and lat from coords in spatialpointsdataframe
       addMarkers(lat = flood_risk@coords[,2], 
-                 lng = flood_risk@coords[,1])
+                 lng = flood_risk@coords[,1],
+                 label = labels,
+                 clusterOptions = markerClusterOptions())
   })
 
+  # create labels for each ward based on 2016 results
+  labels <- sprintf("
+<table style='width:100%'>
+  <tr>
+    <th>Gauge Name</th>
+    <td>%s</td>
+    </tr>
+    <tr>
+    <th>Facebook</th>
+    <td>%s</td>
+    </tr>
+    <tr>
+    <th>Mailto</th>
+    <td>%s</td>
+    </tr>
+    <tr>
+    <th>Twitter</th>
+    <td>%s</td>
+    </tr>
+    </table>",
+                    
+    as.character(flood_risk$Gauge),
+    HTML(flood_risk$Facebook),
+    HTML(flood_risk$Twitter)
+  ) %>% lapply(htmltools::HTML)
+  
   # add click_on map get popup feature here
   observe({
     leafletProxy("mymap") %>% clearPopups()

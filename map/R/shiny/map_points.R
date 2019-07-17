@@ -1,5 +1,5 @@
 # tester for building responsive leaflet map
-
+library(htmlwidgets)
 library(shiny)
 library(here)
 library(leaflet)
@@ -7,7 +7,7 @@ library(sp)
 library(rgdal)
 
 # import existing geojson
-flood_risk <- readOGR(dsn="./data/G_locs_lite2.geojson")
+flood_risk <- readOGR(dsn="./data/pyfloodmap.geojson")
 
 # anything going into fluidPage goes into app
 ui <- fluidPage(
@@ -37,35 +37,30 @@ server <- function(input, output, session) {
       # select out lon and lat from coords in spatialpointsdataframe
       addMarkers(lat = flood_risk@coords[,2], 
                  lng = flood_risk@coords[,1],
-                 label = labels,
+                 popup = mapply(function(gauge,
+                                         comment,
+                                         impact,
+                                         month,
+                                         year,
+                                         value,
+                                         unit,
+                                         facebook, 
+                                         twitter, 
+                                         email) {
+                   HTML(sprintf("<strong>Gauge Name:</strong> %s<br> <strong>Comment</strong>: %s <br><strong>Impact</strong>: %s <br><strong>Timeframe</strong>: %s %s <br><strong>Measurement value</strong>: %s %s <br>Share to %s <br> Share to %s <br> Or %s", htmltools::htmlEscape(gauge), htmltools::htmlEscape(comment), htmltools::htmlEscape(impact), htmltools::htmlEscape(month), htmltools::htmlEscape(year), htmltools::htmlEscape(value), htmltools::htmlEscape(unit), facebook, twitter, email))},
+                   flood_risk$Gauge_name, 
+                   flood_risk$Comment, 
+                   flood_risk$Impact, 
+                   flood_risk$Month,
+                   flood_risk$Year,
+                   flood_risk$Value, 
+                   flood_risk$Units, 
+                   flood_risk$Facebook, 
+                   flood_risk$Twitter, 
+                   flood_risk$Email, SIMPLIFY = F),
                  clusterOptions = markerClusterOptions())
   })
 
-  # create labels for each ward based on 2016 results
-  labels <- sprintf("
-<table style='width:100%'>
-  <tr>
-    <th>Gauge Name</th>
-    <td>%s</td>
-    </tr>
-    <tr>
-    <th>Facebook</th>
-    <td>%s</td>
-    </tr>
-    <tr>
-    <th>Mailto</th>
-    <td>%s</td>
-    </tr>
-    <tr>
-    <th>Twitter</th>
-    <td>%s</td>
-    </tr>
-    </table>",
-                    
-    as.character(flood_risk$Gauge),
-    HTML(flood_risk$Facebook),
-    HTML(flood_risk$Twitter)
-  ) %>% lapply(htmltools::HTML)
   
   # add click_on map get popup feature here
   observe({
@@ -79,5 +74,7 @@ server <- function(input, output, session) {
     })
   })
 }
+
+
 
 shinyApp(ui, server)

@@ -30,7 +30,7 @@ server <- function(input, output, session) {
 
   output$mymap <- renderLeaflet({
     leafletOptions(maxZoom = 10)  
-    leaflet() %>%
+    leaflet(elementId = 'mymap') %>%
       # set map to centre on west yorkshire TODO change
       setView(lat=53.752288, lng = -1.677899, zoom=8) %>%
       addTiles() %>%
@@ -64,15 +64,15 @@ server <- function(input, output, session) {
   
   # add click_on map get popup feature here
   observeEvent(input$mymap_click,{
-    leafletProxy("mymap") %>% clearPopups()
-    event <- input$mymap_click
+    click_event <- data.frame(input$mymap_click)
     
-    #print(event[2])
+    print(click_event$lat)
+    print(typeof(as.integer(click_event$lat)))
     
-    addPopups('mymap',
-              lng = event[1], 
-              lat = event[2], 
-              popup = 'Ahoy!')
+    leafletProxy('mymap') %>%
+      addPopups(data = click_event, 
+              popup = HTML('Report a flood here <br>',click_event$lat,' ',click_event$lng, '<br> Insert links here.')
+      )
     })
 }
 

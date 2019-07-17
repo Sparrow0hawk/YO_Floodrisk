@@ -1,6 +1,7 @@
 # saving the map file to html
 
 library(htmlwidgets)
+library(shiny)
 library(leaflet)
 library(sp)
 library(rgdal)
@@ -38,6 +39,7 @@ map <- leaflet() %>%
                flood_risk$Twitter, 
                flood_risk$Email, SIMPLIFY = F),
              clusterOptions = markerClusterOptions())
-})
 
+# due to a bug in saveWidget we have to save the file in the top project dir
+# more info https://stackoverflow.com/questions/41399795/savewidget-from-htmlwidget-in-r-cannot-save-html-file-in-another-folder
 saveWidget(map, 'yofloodmap.html')

@@ -66,16 +66,32 @@ server <- function(input, output, session) {
   observeEvent(input$mymap_click,{
     click_event <- data.frame(input$mymap_click)
     
-    print(click_event$lat)
-    print(typeof(as.integer(click_event$lat)))
+    #print(click_event$lat)
+    #print(typeof(as.integer(click_event$lat)))
     
     leafletProxy('mymap') %>%
       addPopups(data = click_event, 
-              popup = HTML('Report a flood here <br>',click_event$lat,' ',click_event$lng, '<br> Insert links here.')
+              # set popups with embedded links to facebook, mailto, twitter
+              popup = HTML('Report a flood here <br>',
+                           click_event$lat,
+                           ' ',
+                           click_event$lng,
+                           '<br> <a href="https://twitter.com/intent/tweet?text=Flood report at ',
+                           click_event$lat,
+                           ',',
+                           click_event$lng,
+                           '&url=https%3A%2F%2Fflood-warning-information.service.gov.uk%2Fwarnings">Tweet us</a>',
+                           '<br>',
+                           ' <a href="https://www.facebook.com/dialog/share?app_id=180444840287&href=https%3A%2F%2Fflood-warning-information.service.gov.uk%2Fwarnings">Facebook</a>',
+                           '<br>',
+                           '<a href="mailto:reports@environmentagency.gov.uk?subject=Flood report at ',
+                           click_event$lng,
+                           ' ',
+                           click_event$lat,
+                           '&amp;Body=Hi %0dthis is a test email ">Email us</a>'
+                           )
       )
     })
 }
-
-
 
 shinyApp(ui, server)

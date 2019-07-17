@@ -28,7 +28,7 @@ with open('data/Flood_impacts_updated.csv') as csv_file:
                         f'">Tweet</a>')
             facebook = (f'<a href="'
                         f'https://www.facebook.com/dialog/share?app_id=180444840287'
-                        f'&href=https%3A%2F%2Fwww.theguardian.com'
+                        f'&href=https%3A%2F%2Fflood-warning-information.service.gov.uk%2Fwarnings'
                         f'">Facebook</a>')
             features.append(
                 Feature(

@@ -25,7 +25,7 @@ with open('data/Flood_impacts_updated.csv') as csv_file:
             twitter = (f'<a href="'
                         f'https://twitter.com/intent/tweet?text='
                         f'Flood report at {long_string},{lat_string}'
-                        f'&url=https%3A%2F%2Fwww.guardian.com'
+                        f'&url=https%3A%2F%2Fflood-warning-information.service.gov.uk%2Fwarnings'
                         f'">Tweet</a>')
             facebook = (f'<a href="'
                         f'https://www.facebook.com/dialog/share?app_id=180444840287'

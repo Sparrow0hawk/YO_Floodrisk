@@ -15,10 +15,10 @@ with open('data/Flood impacts.csv') as csv_file:
             longitude, latitude = location.split(',')[:2]
             features.append(
                 Feature(
-                    geometry = Point((longitude, latitude))
+                    geometry = Point((longitude, latitude)),
                     properties = {
-                        'gauge_name' = gauge_name
-                        'rloi_id' = rloi_id
+                        'gauge_name' : gauge_name,
+                        'rloi_id' : rloi_id
                     }
                 )
             )

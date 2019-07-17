@@ -63,16 +63,17 @@ server <- function(input, output, session) {
 
   
   # add click_on map get popup feature here
-  observe({
+  observeEvent(input$mymap_click,{
     leafletProxy("mymap") %>% clearPopups()
-    event <- input$mymap_shape_click
-    if (is.null(event))
-      return()
+    event <- input$mymap_click
     
-    isolate({
-      leafletProxy("map") %>% addPopups(event$lng, event$lat)
+    #print(event[2])
+    
+    addPopups('mymap',
+              lng = event[1], 
+              lat = event[2], 
+              popup = 'Ahoy!')
     })
-  })
 }
 
 

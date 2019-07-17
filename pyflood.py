@@ -1,7 +1,7 @@
 import csv, json
 from geojson import Feature, FeatureCollection, Point
 
-with open('data/Flood impacts.csv') as csv_file:
+with open('data/Flood_impacts_updated.csv') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     line_count = 0
     features = []
@@ -40,5 +40,5 @@ with open('data/Flood impacts.csv') as csv_file:
         line_count += 1
 
 collection = FeatureCollection(features)
-#with open("GeoObs.json", "w") as f:
-    #f.write('%s' % collection)
+with open("data/pyfloodmap.geojson", "w") as f:
+    f.write('%s' % collection)

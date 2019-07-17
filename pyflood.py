@@ -17,13 +17,19 @@ with open('data/Flood_impacts_updated.csv') as csv_file:
             long_string, lat_string = tuple(co_ords)
             #print(location, long_string, lat_string)
             longitude, latitude = float(long_string), float(lat_string)
-            mailto = (f'mailto:reports@environmentagency.gov.uk'
-                    f'?subject=Flood report at {long_string},{lat_string}')
-            twitter = (f'https://twitter.com/intent/tweet?text='
+            mailto = (f'<a href="'
+                    f'mailto:reports@environmentagency.gov.uk'
+                    f'?subject=Flood report at {long_string},{lat_string}'
+                    f'">email us</a>')
+            twitter = (f'<a href="'
+                        f'https://twitter.com/intent/tweet?text='
                         f'Flood report at {long_string},{lat_string}'
-                        f'&url=https%3A%2F%2Fwww.guardian.com')
-            facebook = (f'https://www.facebook.com/dialog/share?app_id=180444840287'
-                        f'&href=https%3A%2F%2Fwww.theguardian.com')
+                        f'&url=https%3A%2F%2Fwww.guardian.com'
+                        f'">Tweet</a>')
+            facebook = (f'<a href="'
+                        f'https://www.facebook.com/dialog/share?app_id=180444840287'
+                        f'&href=https%3A%2F%2Fwww.theguardian.com'
+                        f'">Facebook</a>')
             features.append(
                 Feature(
                     geometry = Point((longitude, latitude)),

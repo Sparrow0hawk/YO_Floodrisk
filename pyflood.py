@@ -10,8 +10,9 @@ with open('data/Flood_impacts_updated.csv') as csv_file:
             #label1, label2, label3 = row[1], row[2], row[5]
             #print(label1, label2, label3)
             pass
-        elif len(row[5]) > 10:
-            gauge_name, rloi_id, location = row[1], int(row[2]), row[5]
+        elif len(row[6]) > 10: #check location field is not empty of latitude. longitude
+            gauge_name, rloi_id, value, units = row[1], int(row[2]), row[3], row[4]
+            location, comment, impact, year, month = row[6], row[7], row[10], row[11], row[12]
             co_ords = location.split(',')
             co_ords = [value for value in co_ords if value !=""]
             long_string, lat_string = tuple(co_ords)
@@ -34,11 +35,17 @@ with open('data/Flood_impacts_updated.csv') as csv_file:
                 Feature(
                     geometry = Point((longitude, latitude)),
                     properties = {
-                        'gauge_name' : gauge_name,
-                        'rloi_id' : rloi_id,
-                        'mailto' : mailto,
-                        'twitter' : twitter,
-                        'facebook' : facebook,
+                        'Gauge_name' : gauge_name,
+                        #'rloi_id' : rloi_id,
+                        'Value' : value,
+                        'Units' : units,
+                        'Comment' : comment,
+                        'Impact' : impact,
+                        'Year' : year,
+                        'Month' : month,
+                        'Email' : mailto,
+                        'Twitter' : twitter,
+                        'Facebook' : facebook,
                     }
                 )
             )

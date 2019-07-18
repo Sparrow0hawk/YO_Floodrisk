@@ -13,8 +13,9 @@ https://environment.data.gov.uk/flood-monitoring/id/stations
 
 ## Final work write up
 
-After an excellent two days we managed to produce an output based on the csv data provided by the Environment agency.
+After an excellent two days we managed to produce a mapped output based on the csv data provided by the Environment agency, with proof of concept for how the users of the mapping could share information from the map using social media or directly contribute new information back to the Environment Agency.
 
+There were several streams within the team working in parallel on spreadsheet data, python scripting, and R work.
 This repo holds all work done during the project.
 
 ## Data manipulation
@@ -23,9 +24,11 @@ Work converting the csv into a geojson format with suitable html sections for li
 ## Notes on Data folder
 
 The initial data provided was the "Flood impacts.csv" file. This csv was adapted a number of times (TODO @alecjtaylor if you could briefly summarise?).
-The pyfloodmap/floodgaugemap/floodimpactmap.geojson files are all outputs from the csv_to_geojson work.
-The G_locs_lite2.geojson was produced using the https://odileeds.github.io/CSV2GeoJSON/ .
 The "manipulated_flood_risk.csv" is formed from the "Flood risk.csv" using jupyter notebook lon_lat_handling.ipynb to extract longditude and latitude from the combined column in the source csv.
+The G_locs_lite2.geojson was produced using the https://odileeds.github.io/CSV2GeoJSON/ .
+The pyfloodmap/floodgaugemap/floodimpactmap.geojson files are all outputs from the csv_to_geojson work:
+ - pyfloodmap was produced from the initial "Flood impacts.csv" file using the pyflood.py script
+ - floodgaugemap.geojson and floodimpactmap.geojson represent different partitions of the data within "Flood_impacts_updated.csv", as requested by the data owners, using the floodgauge.py and floodimpact.py scripts respectively.
 
 ## Map production
 

@@ -13,6 +13,17 @@ https://datamillnorth.org/dataset/flood-impacts
 Gauge API call
 https://environment.data.gov.uk/flood-monitoring/id/stations
 
+## Environment Agency Impact Data
+The Environment Agency provided a sample dataset of compiled flood impacts. These impacts have been compiled from several sources such as historic events and modelled/simulated flooding. 
+
+All records were tied to a specific fluvial gauge. Some of these have an additional spatial component at the site of the impact. E.G. flooded carpark.
+
+This dataset is still in an alpha development phase within the EA and is moving towards a private Beta, with public testing via invites. Please get in touch with @alecjtaylor to request access to the Beta. 
+
+Upon release the dataset will be avliable via data.gov.uk site : https://environment.data.gov.uk/flood-monitoring/doc/reference
+
+It will also be displayed via the River Levels on the Internet service : https://flood-warning-information.service.gov.uk/river-and-sea-levels
+
 ## Final work write up
 
 After an excellent two days we managed to produce a mapped output based on the csv data provided by the Environment agency, with proof of concept for how the users of the mapping could share information from the map using social media or directly contribute new information back to the Environment Agency.

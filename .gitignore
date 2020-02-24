@@ -1,6 +1,6 @@
 
 
 # jupyter history stuff
-.ipynb_checkpoints
+*.ipynb_checkpoints/
 .Rproj.user
 .Rhistory

@@ -1,6 +1,6 @@
 #!/bin/bash
 
 echo 'Lets make you a good conda env'
-echo 'Hope you are in the same directory as the requirements.txt!'
+echo 'Hope you are in the same directory as the environment.yml!'
 
-conda create --name yoflood --file requirements.txt
+conda env create -f environment.yml
